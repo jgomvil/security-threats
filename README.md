@@ -6,3 +6,4 @@ Prerequisites:
 - Linux or macOS
 - Node.js
 - Sqlite3
+- Esto es un cambio
