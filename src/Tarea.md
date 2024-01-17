@@ -12,4 +12,3 @@
 # Ionic:
 -1 Vulnerabilidad: Cross-site Scripting (XSS)
 -La vulnerabilidad de Cross-site Scripting (XSS) afecta a versiones de @ionic/core anteriores a la 4.0.3, 4.1.3, 4.2.1 y 4.3.1, permitiendo a un atacante ejecutar scripts maliciosos en un sitio web legítimo. Esta vulnerabilidad se debe a una sanitización inadecuada del innerHTML. En este caso es crítica.
-
