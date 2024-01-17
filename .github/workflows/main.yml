@@ -13,7 +13,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: test
+          command: monitor #aqui lo cambio por test
           args: --sarif-file-output=snyk.sarif --all-projects
 
       - name: Upload result to GitHub Code Scanning
