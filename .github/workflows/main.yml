@@ -4,36 +4,29 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      # Agregar paso para ejecutar Snyk y generar informe SARIF
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true # To make sure that SARIF upload gets called
-        #aqui le pongo un false para que no siga en caso de tener fallos
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
           args: --sarif-file-output=snyk.sarif --all-projects
-      - name: Upload result to GitHub Code Scanning
+
+      # Subir resultados de Snyk a GitHub Code Scanning
+      - name: Upload Snyk result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
-#########
-      
-      - name: Snyk localiza todas las vulnerabilidades y si no hay hace zip
-        uses: snyk/actions/node@master
-        continue-on-error: false # To make sure that SARIF upload gets called
-        #aqui le pongo un false para que no siga en caso de tener fallos
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
- 
-      - name: Crear zip
+
+      # Verificar si hay errores y crear ZIP
+      - name: Crear ZIP si no hay vulnerabilidades
+        if: success() && steps.security.outputs.result == 'success'
         uses: ihiroky/archive-action@v1
         with:
-          root_dir: github/codeql-action
-          file_path: output.zip
-
-
-          
+          root_dir: github/security-threats
+          file_path: CodigoSeguro.zip
