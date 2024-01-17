@@ -14,8 +14,9 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: snyk code test
+          command: test
           args: --sarif-file-output=snyk.sarif --all-projects
+
       # Subir resultados de Snyk a GitHub Code Scanning
       - name: Upload Snyk result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
