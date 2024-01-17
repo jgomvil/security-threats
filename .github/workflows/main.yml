@@ -14,7 +14,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: snyk test
+          run: snyk test
           args: --sarif-file-output=snyk.sarif --all-projects
 
       # Subir resultados de Snyk a GitHub Code Scanning
@@ -30,7 +30,4 @@ jobs:
         with:
           root_dir: github/security-threats
           file_path: CodigoSeguro.zip
-
-
-
 
