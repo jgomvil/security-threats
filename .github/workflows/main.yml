@@ -31,3 +31,39 @@ jobs:
           root_dir: github/security-threats
           file_path: CodigoSeguro.zip
 
+
+
+
+
+name: Scan code with Snyk
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: Run Snyk to check for vulnerabilities
+        run: |
+          # Instala Snyk CLI
+          npm install -g snyk
+          # Autentica con Snyk utilizando el token almacenado en GitHub Secrets
+          snyk auth ${{ secrets.SNYK_TOKEN }}
+          # Ejecuta el análisis de seguridad del código
+          snyk code test --sarif-file-output=snyk.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
+
+      - name: Snyk localiza todas las vulnerabilidades
+        run: snyk test
+
+      - name: Crear ZIP si no hay vulnerabilidades
+        if: ${{ success() }}
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: github/security-threats
+          file_path: CodigoSeguro.zip 
+
