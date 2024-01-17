@@ -9,6 +9,6 @@
 # Angular:
 - 1 Vulnerabilidad: Cross-site Scripting (XSS)
 - El paquete @angular/core, en versiones afectadas entre <11.0.5 y >=11.1.0-next.0 <11.1.0-next.3, presenta una vulnerabilidad de Cross-site Scripting (XSS) durante el desarrollo con SSR habilitado. El XSS ocurre cuando un atacante engaña a una aplicación web legítima para aceptar una solicitud que parece provenir de una fuente confiable. Esto se logra al escapar del contexto de la aplicación web, que luego entrega esos datos a los usuarios junto con otro contenido dinámico de confianza, sin validarlos.
-# Ionic:
+# Ionic: 
 -1 Vulnerabilidad: Cross-site Scripting (XSS)
 -La vulnerabilidad de Cross-site Scripting (XSS) afecta a versiones de @ionic/core anteriores a la 4.0.3, 4.1.3, 4.2.1 y 4.3.1, permitiendo a un atacante ejecutar scripts maliciosos en un sitio web legítimo. Esta vulnerabilidad se debe a una sanitización inadecuada del innerHTML. En este caso es crítica.
