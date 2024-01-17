@@ -23,7 +23,6 @@ jobs:
           
       - name: Snyk localiza todas las vulnerabilidades
         uses: snyk/actions/node@master
-        continue-on-error: false # Para que no se ejecute la siguiente acción
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
