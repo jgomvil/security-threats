@@ -1,0 +1,20 @@
+name: .ZIP code si es seguro
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run Snyk to check for all vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: false #aqui le pongo un false para que no siga en caso de tener fallos
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+      - name: Crear zip
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: github/codeql-action
+          file_path: output.zip
