@@ -12,7 +12,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: test
+          command: iac test
           #command: Snyk Code test
           #command: monitor #aqui lo cambio por test
           args: --sarif-file-output=snyk.sarif --all-projects
@@ -26,7 +26,6 @@ jobs:
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       - name: Crear ZIP si no hay vulnerabilidades
         if: ${{ success() }}
         uses: ihiroky/archive-action@v1
