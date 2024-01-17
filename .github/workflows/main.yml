@@ -18,3 +18,22 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+#########
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: false # To make sure that SARIF upload gets called
+        #aqui le pongo un false para que no siga en caso de tener fallos
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: --sarif-file-output=snyk.sarif --all-projects
+      - name: Crear zip
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          root_dir: github/codeql-action
+          file_path: output.zip
+
+
+          
